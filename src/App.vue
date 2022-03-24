@@ -1,14 +1,20 @@
 <template>
-  <BookCard />
+  <AppNavbar class="header" />
+  <AppBody />
+  <AppFooter class="footer" />
 </template>
 
 <script>
-import BookCard from "./components/book_card.vue";
+import AppNavbar from "./components/AppNavbar.vue";
+import AppFooter from "./components/AppFooter.vue";
+import AppBody from "./components/AppBody.vue";
 
 export default {
   name: "App",
   components: {
-    BookCard,
+    AppNavbar,
+    AppBody,
+    AppFooter,
   },
 };
 </script>
@@ -18,8 +24,16 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f2f2f2;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
 }
+
+/* .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #ffffff;
+} */
 </style>
