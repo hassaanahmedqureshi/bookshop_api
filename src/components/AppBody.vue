@@ -1,5 +1,6 @@
 <template>
   <div class="container body-container">
+    <!-- List of books in cards -->
     <div class="container-lg">
       <div class="row justify-content-md-center">
         <div v-for="content in contents" :key="content.id" class="col">
@@ -31,18 +32,18 @@
       </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for showing a specific BookDetail -->
     <div
       class="modal fade bd-example-modal-lg"
-      id="exampleModal"
+      id="bookdetails"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="bookdetailsLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg">
         <div class="modal-content" v-if="bookDetails !== null">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="bookdetailsLabel">
               {{ this.bookDetails.title }}
             </h5>
             <button
@@ -129,7 +130,6 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
