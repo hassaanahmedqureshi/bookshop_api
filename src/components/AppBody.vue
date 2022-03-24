@@ -20,7 +20,8 @@
                 type="button"
                 class="btn btn-primary"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target=".bd-example-modal-lg"
+                v-on:click="getBookData(content.id)"
               >
                 See Details
               </button>
@@ -32,16 +33,18 @@
 
     <!-- Modal -->
     <div
-      class="modal fade"
+      class="modal fade bd-example-modal-lg"
       id="exampleModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content" v-if="bookDetails !== null">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              {{ this.bookDetails.title }}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -49,7 +52,75 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <div class="container">
+              <div
+                class="bookImage mb-5"
+                style="width: 100%; height: 400px; overflow: hidden"
+              >
+                <img
+                  style="height: 100%"
+                  :src="this.bookDetails.imageLink"
+                  alt="can't load image"
+                  onerror="this.onerror=null; this.src='https://sciendo.com/product-not-found.png'"
+                />
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="text-start fw-bold">Author:</p>
+                </div>
+                <div class="col-sm-10">
+                  <p class="text-start">{{ this.bookDetails.author }}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="text-start fw-bold">Country:</p>
+                </div>
+                <div class="col-sm-10">
+                  <p class="text-start">{{ this.bookDetails.country }}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="text-start fw-bold">Language:</p>
+                </div>
+                <div class="col-sm-10">
+                  <p class="text-start">{{ this.bookDetails.language }}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="text-start fw-bold">Pages:</p>
+                </div>
+                <div class="col-sm-10">
+                  <p class="text-start">{{ this.bookDetails.pages }}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="text-start fw-bold">Year:</p>
+                </div>
+                <div class="col-sm-10">
+                  <p class="text-start">{{ this.bookDetails.year }}</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="text-start fw-bold">Description:</p>
+                </div>
+                <div class="col-sm-10">
+                  <p class="text-start">{{ this.bookDetails.abstract }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="modal-footer">
             <button
               type="button"
@@ -78,7 +149,20 @@ export default {
   data() {
     return {
       contents: null,
+      bookDetails: null,
     };
+  },
+  methods: {
+    getBookData(bookId) {
+      axios
+        .get(`http://localhost:8080/books/${bookId}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          this.bookDetails = res.data;
+          console.log(this.bookDetails.title);
+        });
+    },
   },
   mounted() {
     let config = {
