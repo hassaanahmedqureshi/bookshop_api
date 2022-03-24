@@ -1,5 +1,10 @@
 # bookshop_api
 
+## Project description
+
+Bookshop API is a single page application that exposes backend of an api based on books data. The main page shows list of all the books in cards format and upon clicking the See Details button of any card, opens a simple modal showing the details of that book.
+
+
 ## Project setup
 ```
 npm install
